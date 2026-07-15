@@ -3,22 +3,15 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Enable Corepack and use the project's pnpm version
 RUN corepack enable && corepack prepare pnpm@11.5.0 --activate
 
-# Copy dependency files first for better layer caching
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
-# Install dependencies
-RUN pnpm config set onlyBuiltDependencies esbuild \
- && pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
-# Copy the rest of the source
 COPY . .
 
-# Build the Vite app
 RUN pnpm run build
-
 
 # ---------- Production Stage ----------
 FROM nginx:1.27-alpine
