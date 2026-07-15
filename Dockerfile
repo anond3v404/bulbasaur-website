@@ -4,7 +4,7 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Enable Corepack and use the project's pnpm version
-RUN corepack enable && corepack prepare pnpm@11.5.4 --activate
+RUN corepack enable && corepack prepare pnpm@11.5.0 --activate
 
 # Copy dependency files first for better layer caching
 COPY package.json pnpm-lock.yaml ./
