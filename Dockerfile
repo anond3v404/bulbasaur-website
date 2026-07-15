@@ -3,14 +3,15 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Enable Corepack (includes pnpm)
-RUN corepack enable
+# Enable Corepack and use the project's pnpm version
+RUN corepack enable && corepack prepare pnpm@11.5.4 --activate
 
 # Copy dependency files first for better layer caching
 COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm config set onlyBuiltDependencies esbuild \
+ && pnpm install --frozen-lockfile
 
 # Copy the rest of the source
 COPY . .
