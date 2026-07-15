@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  bulbasaur-website:
+    container_name: bulbasaur-website
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bulbasaur-website:latest
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
