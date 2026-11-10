@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Show the first frame instantly, before the animation is ready -->
+    <link rel="preload" as="image" href="/images/bulbasaur-poster.webp" fetchpriority="high" />
+    <style>
+      body {
+        background: #000;
+      }
+    </style>
     <title>Bulbasaur.Fun</title>
   </head>
   <body>
